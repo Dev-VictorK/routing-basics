@@ -1,25 +1,37 @@
 import React from "react";
 import './App.css';
 
+const Route = ({path, component}) => {
+  const pathname = window.location.pathname;
+  if(pathname.match(path)) {
+    return(
+      React.createElement(component)
+    );
+  } else {
+    return null;
+  }
+};
+
 class App extends React.Component {
   render() {
-    return(
+    return (
       <div className='container'>
         <h2>which body of water?</h2>
         <ul>
           <li>
             <a href='/atlantic'>
-            <code>/atlantic</code>
+              <code>/atlantic</code>
             </a>
           </li>
           <li>
             <a href='/pacific'>
-            <code>/pacific</code>
+              <code>/pacific</code>
             </a>
           </li>
         </ul>
-        <hr/>
-
+        <hr />
+        <Route path='/atlantic' component={Atlantic} />
+        <Route path='/pacific' component={Pacific} />
       </div>
     );
   }
