@@ -25,34 +25,28 @@ const Link = ({ to, children }) => (
   </a>
 )
 
-class App extends React.Component {
-  componentDidMount() {
-    history.listen(() => this.forceUpdate());
-  }
-  
-  render() {
-    return (
-      <div className='container'>
-        <h2>which body of water?</h2>
-        <ul>
-          <li>
-            <Link to='/atlantic'>
-              <code>/atlantic</code>
-            </Link>
-          </li>
-          <li>
-            <Link to='/pacific'>
-              <code>/pacific</code>
-            </Link>
-          </li>
-        </ul>
-        <hr />
-        <Route path='/atlantic' component={Atlantic} />
-        <Route path='/pacific' component={Pacific} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div className='container'>
+      <h2>Which body of water?</h2>
+      <ul>
+        <li>
+          <Link to='/atlantic'>
+            <code>/atlantic</code>
+          </Link>
+        </li>
+        <li>
+          <Link to='/pacific'>
+            <code>/pacific</code>
+          </Link>
+        </li>
+      </ul>
+      <hr />
+      <Route path='/atlantic' component={Atlantic} />
+      <Route path='/pacific' component={Pacific} />
+    </div>
+  </Router>
+)
 
 const Atlantic = () => (
   <div>
