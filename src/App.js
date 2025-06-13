@@ -26,6 +26,10 @@ const Link = ({ to, children }) => (
 )
 
 class App extends React.Component {
+  componentDidMount() {
+    history.listen(() => this.forceUpdate());
+  }
+  
   render() {
     return (
       <div className='container'>
