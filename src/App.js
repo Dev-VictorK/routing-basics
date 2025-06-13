@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 
-const Route = ({ path, component }) => {
-  const pathname = window.location.pathname;
+const Route = ({ path, component }, { location }) => {
+  const pathname = location.pathname;
   if (pathname.match(path)) {
     return (
       React.createElement(component)
@@ -12,7 +12,11 @@ const Route = ({ path, component }) => {
   }
 };
 
-const Link = ({ to, children }) => (
+Route.contextTypes = {
+  location: React.PropTypes.object,
+};
+
+const Link = ({ to, children }, { history }) => (
   <a
     onClick={(e) => {
       e.preventDefault();
@@ -22,6 +26,10 @@ const Link = ({ to, children }) => (
     {children}
   </a>
 )
+
+Link.contextTypes = {
+  history: React.PropTypes.object,
+};
 
 class Router extends React.Component {
   static childContextTypes = {
