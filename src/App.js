@@ -1,8 +1,6 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 
-const history = createBrowserHistory();
-
 const Route = ({ path, component }) => {
   const pathname = window.location.pathname;
   if (pathname.match(path)) {
@@ -24,6 +22,32 @@ const Link = ({ to, children }) => (
     {children}
   </a>
 )
+
+class Router extends React.Component {
+  static childContextTypes = {
+    history: React.PropTypes.object,
+    location: React.PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.history = createBrowserHistory();
+    this.history.listen(() => this.forceUpdate());
+  }
+
+  getChildContext() {
+    return {
+      history: this.history,
+      location: window.location,
+    };
+  }
+
+  render() {
+    return this.props.children;
+  }
+
+}
 
 const App = () => (
   <Router>
