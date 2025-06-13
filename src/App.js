@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createBrowserHistory } from 'history';
 
 const Route = ({ path, component }, { location }) => {
@@ -25,13 +26,14 @@ const Link = ({ to, children }, { history }) => (
     href={to}>
     {children}
   </a>
-)
+);
 
 Link.contextTypes = {
   history: React.PropTypes.object,
 };
 
 class Router extends React.Component {
+
   static childContextTypes = {
     history: React.PropTypes.object,
     location: React.PropTypes.object,
@@ -78,7 +80,7 @@ const App = () => (
       <Route path='/pacific' component={Pacific} />
     </div>
   </Router>
-)
+);
 
 const Atlantic = () => (
   <div>
