@@ -29,6 +29,19 @@ const RouterContextProvider = ({ children }) => {
   );
 };
 
+class Redirect extends React.Component {
+  static contextType = RouterContext;
+
+  componentDidMount() {
+    const to = this.props.to;
+    history.push(to);
+  }
+
+  render() {
+    return null;
+  }
+}
+
 // Route component
 const Route = ({ path, component }) => {
   const { location } = useContext(RouterContext);
@@ -66,10 +79,12 @@ const App = () => (
       <ul>
         <li><Link to='/atlantic'><code>/atlantic</code></Link></li>
         <li><Link to='/pacific'><code>/pacific</code></Link></li>
+        <li><Link to='/black-sea'><code>/black-sea</code></Link></li>
       </ul>
       <hr />
       <Route path='/atlantic' component={Atlantic} />
       <Route path='/pacific' component={Pacific} />
+      <Route path='/black-sea' component={BlackSea} />
     </div>
   </RouterContextProvider>
 );
@@ -88,4 +103,33 @@ const Pacific = () => (
   </div>
 );
 
+class BlackSea extends React.Component {
+  state = {
+    counter: 3,
+  };
+  componentDidMount() {
+    this.interval = setInterval(() => (
+      this.setState({ counter: this.state.counter - 1 })
+    ), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Black Sea</h3>
+        <p>Nothing to sea [sic] here ...</p>
+        <p>Redirecting in {this.state.counter}...</p>
+        {
+          (this.state.counter < 1) ? (
+            <Redirect to='/' />
+          ) : null
+        }
+
+      </div>
+    );
+  }
+}
 export default App;
