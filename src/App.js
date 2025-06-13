@@ -1,4 +1,7 @@
 import React from "react";
+import createHistory from 'history/createBrowserHistory';
+
+const history = createHistory();
 
 const Route = ({path, component}) => {
   const pathname = window.location.pathname;
@@ -18,14 +21,14 @@ class App extends React.Component {
         <h2>which body of water?</h2>
         <ul>
           <li>
-            <a href='/atlantic'>
+            <Link to='/atlantic'>
               <code>/atlantic</code>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href='/pacific'>
+            <Link to='/pacific'>
               <code>/pacific</code>
-            </a>
+            </Link>
           </li>
         </ul>
         <hr />
