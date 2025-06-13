@@ -1,18 +1,29 @@
-import React from "react";
-import createHistory from 'history/createBrowserHistory';
+import React from 'react';
+import { createBrowserHistory } from 'history';
 
-const history = createHistory();
+const history = createBrowserHistory();
 
-const Route = ({path, component}) => {
+const Route = ({ path, component }) => {
   const pathname = window.location.pathname;
-  if(pathname.match(path)) {
-    return(
+  if (pathname.match(path)) {
+    return (
       React.createElement(component)
     );
   } else {
     return null;
   }
 };
+
+const Link = ({ to, children }) => (
+  <a
+    onClick={(e) => {
+      e.preventDefault();
+      history.push(to);
+    }}
+    href={to}>
+    {children}
+  </a>
+)
 
 class App extends React.Component {
   render() {
