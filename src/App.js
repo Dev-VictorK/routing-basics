@@ -32,7 +32,7 @@ const App = () => (
 );
 
 const NoPath = () => {
-  const [path, setPath] = useState(window.location.pathname);
+  const [path] = useState(window.location.pathname);
 
   return (
     <div>
