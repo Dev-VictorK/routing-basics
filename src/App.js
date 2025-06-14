@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 const App = () => (
   <Router>
@@ -21,7 +21,7 @@ const App = () => (
         } />
         <Route path='/atlantic' element={<Atlantic />} />
         <Route path='/pacific' element={<Pacific />} />
-        <Route path='/black-sea' element={<Navigate to="/" />} />
+        <Route path='/black-sea' element={<BlackSea />} />
         <Route path='/' element={
           <h3>Welcome! Select a body of saline water above.</h3>
         } />
@@ -29,6 +29,29 @@ const App = () => (
     </div>
   </Router>
 );
+
+const BlackSea = () => {
+  const [countdown, setCountdown] = useState(3);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (countdown === 0) {
+      navigate('/');
+    } else {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [countdown, navigate]);
+
+  return (
+        <div>
+          <p>Nothing to sea [sic] here.</p>
+          <p>Redirecting in {countdown}...</p>
+        </div>
+      );
+};
 
 const Atlantic = () => (
   <div>
