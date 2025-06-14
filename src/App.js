@@ -25,10 +25,21 @@ const App = () => (
         <Route path='/' element={
           <h3>Welcome! Select a body of saline water above.</h3>
         } />
+        <Route path ='*' element={<NoPath />}/>
       </Routes>
     </div>
   </Router>
 );
+
+const NoPath = () => {
+  const [path, setPath] = useState(window.location.pathname);
+
+  return (
+    <div>
+      <h3>Error!!! Location {path} is not known.</h3>
+    </div>
+  );
+};
 
 const BlackSea = () => {
   const [countdown, setCountdown] = useState(3);
@@ -46,11 +57,11 @@ const BlackSea = () => {
   }, [countdown, navigate]);
 
   return (
-        <div>
-          <p>Nothing to sea [sic] here.</p>
-          <p>Redirecting in {countdown}...</p>
-        </div>
-      );
+    <div>
+      <p>Nothing to sea [sic] here.</p>
+      <p>Redirecting in {countdown}...</p>
+    </div>
+  );
 };
 
 const Atlantic = () => (
